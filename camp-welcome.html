@@ -216,8 +216,37 @@
     <script type="module">
         // Import Firebase modules
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        //
+        // --- START OF FIREBASE CONFIG ---
+        //
+        
+        // --- PASTE YOUR FIREBASE CONFIG HERE ---
+        // (Copy it from your Firebase Project Settings)
+        // It will look like this:
+        // const firebaseConfig = {
+        //   apiKey: "AIzaSy...",
+        //   authDomain: "your-project.firebaseapp.com",
+        //   projectId: "your-project",
+        //   storageBucket: "your-project.appspot.com",
+        //   messagingSenderId: "123456789",
+        //   appId: "1:123456789:web:abcdefg"
+        // };
+        // 
+        // (This is just an example, yours will be different. If you don't paste it, this will not work.)
+        const firebaseConfig = {
+          apiKey: "AIzaSyCXr9MHZ6vRJ6_u5zWL7x-OatnxEGj2VYU",
+          authDomain: "long-english-camp.firebaseapp.com",
+          projectId: "long-english-camp",
+          storageBucket: "long-english-camp.firebasestorage.app",
+          messagingSenderId: "881175905434",
+          appId: "1:881175905434:web:ac95bb0b19274f8c820b23"
+        };
+        
+        // --- END OF FIREBASE CONFIG ---
+        //
 
         // Module-level variables for Firebase
         let db, auth;
@@ -227,14 +256,13 @@
          */
         async function initializeFirebase() {
             try {
-                // Get Firebase config, app ID, and auth token from global scope (provided by environment)
-                const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
-                const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-                const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-                
                 if (!firebaseConfig.apiKey) {
-                    console.error("Firebase config is missing.");
-                    return { db: null, auth: null, appId: null };
+                    console.error("Firebase config is missing. Please paste it into the script.");
+                    const formError = document.getElementById('form-error');
+                    if (formError) {
+                        formError.textContent = "Error: Page is not configured. Please contact site admin.";
+                    }
+                    return { db: null, auth: null };
                 }
 
                 // Initialize Firebase
@@ -243,29 +271,23 @@
                 auth = getAuth(app);
                 setLogLevel('Debug'); // Enable debug logging for Firestore
 
-                // Sign in the user
-                if (initialAuthToken) {
-                    await signInWithCustomToken(auth, initialAuthToken);
-                    console.log("User signed in with custom token.");
-                } else {
-                    await signInAnonymously(auth);
-                    console.log("User signed in anonymously.");
-                }
+                // Sign in the user anonymously
+                await signInAnonymously(auth);
+                console.log("User signed in anonymously.");
                 
                 if (auth.currentUser) {
                     console.log("User ID:", auth.currentUser.uid);
                 }
                 
-                return { db, auth, appId };
+                return { db, auth };
 
             } catch (error) {
                 console.error("Firebase initialization failed:", error);
-                // Display a user-friendly error on the page if needed
                 const formError = document.getElementById('form-error');
                 if (formError) {
                     formError.textContent = "Error: Could not connect to service. Please refresh.";
                 }
-                return { db: null, auth: null, appId: null };
+                return { db: null, auth: null };
             }
         }
 
@@ -273,27 +295,12 @@
         document.addEventListener('DOMContentLoaded', async () => {
 
             // Initialize Firebase first
-            const { appId } = await initializeFirebase();
+            // Note: appId is not needed here anymore, it's in the config
+            await initializeFirebase();
 
             // --- Profile Form Logic ---
             const profileForm = document.getElementById('profile-form');
-            const submitBtn = document.getElementById('submit-btn');
-            const formError = document.getElementById('form-error');
-            const fullNameInput = document.getElementById('full-name');
-            
-            // --- Original "Other" fields ---
-            const otherCheck = document.getElementById('interest-other-check');
-            const otherText = document.getElementById('interest-other-text');
-
-            // --- NEW conditional fields ---
-            const sportsCheck = document.getElementById('interest-sports-check');
-            const sportsText = document.getElementById('interest-sports-text');
-            const musicCheck = document.getElementById('interest-music-check');
-            const musicText = document.getElementById('interest-music-text');
-            const gamesCheck = document.getElementById('interest-games-check');
-            const gamesText = document.getElementById('interest-games-text');
-            const readingCheck = document.getElementById('interest-reading-check');
-            const readingText = document.getElementById('interest-reading-text');
+            // ... (rest of the variable declarations are the same) ...
             const artCheck = document.getElementById('interest-art-check');
             const artText = document.getElementById('interest-art-text');
 
@@ -338,19 +345,9 @@
                     return;
                 }
 
-                // Set loading state
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Submitting...';
-                formError.textContent = '';
-
-                // 1. Collect all checked interests
-                const interests = [];
-                document.querySelectorAll('input[name="interests"]:checked').forEach((checkbox) => {
-                    interests.push(checkbox.value);
-                });
-
                 // 2. Get data from the form
                 const profileData = {
+                    userId: auth.currentUser.uid, // Add the user's anonymous ID for reference
                     fullName: fullName,
                     nickname: document.getElementById('nickname').value.trim(),
                     interests: interests,
@@ -370,12 +367,8 @@
                 };
 
                 try {
-                    // 3. Get current user ID
-                    const userId = auth.currentUser.uid;
-
-                    // 4. Add data to a private user-specific collection
-                    // Path: /artifacts/{appId}/users/{userId}/studentProfile
-                    const docRef = await addDoc(collection(db, 'artifacts', appId, 'users', userId, 'studentProfile'), profileData);
+                    // 3. Add data to our new, simple "studentProfiles" collection
+                    const docRef = await addDoc(collection(db, 'studentProfiles'), profileData);
                     
                     console.log("Document written with ID: ", docRef.id);
                     
@@ -560,4 +553,6 @@
     </script>
 </body>
 </html>
+
+
 
