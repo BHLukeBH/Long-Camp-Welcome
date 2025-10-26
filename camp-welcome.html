@@ -3,239 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to British Hills Camp!</title>
-    <!-- Load Tailwind CSS -->
+    <title>British Hills Camp - Get to Know You!</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Use the Inter font family -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
         }
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        
-        /* Custom styles for the matching game */
-        .match-item {
-            cursor: pointer;
+        .game-tile {
             transition: all 0.2s ease-in-out;
         }
-        .match-item.selected {
-            background-color: #bfdbfe; /* blue-200 */
-            transform: scale(1.03);
+        .game-tile.selected {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 3px theme('colors.blue.500');
+            background-color: theme('colors.blue.100');
         }
-        .match-item.correct {
-            background-color: #d1fae5; /* green-100 */
-            color: #065f46; /* green-800 */
-            cursor: not-allowed;
-            opacity: 0.7;
+        .game-tile.correct {
+            background-color: theme('colors.green.500');
+            color: white;
+            transform: scale(1.05);
         }
-        .match-item.incorrect {
-            animation: shake 0.5s;
-            background-color: #fee2e2; /* red-100 */
-        }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-        
-        /* Custom modal for form submission */
-        .modal-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 50;
-        }
-        .modal-content {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            text-align: center;
+        .game-tile.incorrect {
+            background-color: theme('colors.red.500');
+            color: white;
+            transform: scale(1.05);
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-gray-100">
 
     <!-- Header -->
     <header class="bg-white shadow-md">
-        <div class="max-w-4xl mx-auto py-6 px-4">
-            <h1 class="text-3xl font-bold text-center text-blue-800">
-                Welcome to British Hills Camp!
-            </h1>
+        <div class="container mx-auto max-w-5xl px-4 py-6">
+            <h1 class="text-3xl font-bold text-gray-800">Welcome to the Camp!</h1>
+            <p class="mt-2 text-lg text-gray-600">We're excited to have you at British Hills.</p>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+    <main class="container mx-auto max-w-5xl px-4 py-8">
 
-        <!-- Welcome Message Section -->
-        <section class="bg-white p-6 rounded-lg shadow-lg mb-8">
-            <h2 class="text-2xl font-semibold text-gray-900 mb-4">We're excited to see you soon!</h2>
-            <p class="text-lg leading-relaxed">
-                Welcome to the official page for our upcoming camp! We've put together this page so you can (optionally) share a little about yourself and get warmed up for our time together at British Hills. We can't wait to help you take your English to the next level in a fun and immersive environment.
-            </p>
-        </section>
+        <!-- 1. Welcome Message -->
+        <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg mb-8">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">A Quick Welcome Note</h2>
+            <div class="space-y-4 text-gray-600">
+                <p>Hello and welcome! We are so glad you'll be joining us for our upcoming camp. This is a special program for intermediate and advanced learners, and we can't wait to get started.</p>
+                <p>Before you arrive, we'd love to get to know you a little better. Below is an optional form where you can tell us a bit about yourself. This will help our teachers plan some activities and create a great experience for everyone.</p>
+                <p>We've also added a small game at the bottom of the page to help you warm up your English skills. Have fun, and we look forward to seeing you soon!</p>
+            </div>
+        </div>
 
-        <!-- Profile Form Section -->
-        <section class="bg-white p-6 rounded-lg shadow-lg mb-8">
-            <h2 class="text-2xl font-semibold text-gray-900 mb-4">My Camp Profile <span class="text-base font-normal text-gray-500">(Optional)</span></h2>
-            <p class="text-gray-600 mb-6">Tell us a bit about yourself! This is just for fun and to help our teachers get to know you.</p>
+        <!-- 2. "My Camp Profile" Form -->
+        <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg mb-8">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-6">My Camp Profile (Optional)</h2>
             
             <form id="profile-form" class="space-y-6">
                 <!-- Full Name -->
                 <div>
-                    <label for="full-name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                    <input type="text" id="full-name" name="full-name" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., Keni Suzuki" required>
+                    <label for="full-name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                    <input type="text" name="full-name" id="full-name" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-3" placeholder="Sakura Tanaka">
                 </div>
-                
+
                 <!-- Nickname -->
                 <div>
-                    <label for="nickname" class="block text-sm font-medium text-gray-700 mb-1">What should we call you? (Nickname)</label>
-                    <input type="text" id="nickname" name="nickname" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., Keni or Lisa">
+                    <label for="nickname" class="block text-sm font-medium text-gray-700">What would you like to be called?</label>
+                    <input type="text" name="nickname" id="nickname" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-3" placeholder="Saki">
                 </div>
 
                 <!-- Interests -->
                 <div>
-                    <span class="block text-sm font-medium text-gray-700 mb-2">What are your interests?</span>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                        <label class="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition">
-                            <input type="checkbox" id="interest-sports-check" name="interests" value="sports" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                            <span>Sports</span>
-                        </label>
-                        <label class="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition">
-                            <input type="checkbox" id="interest-music-check" name="interests" value="music" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                            <span>Music</span>
-                        </label>
-                        <label class="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition">
-                            <input type="checkbox" id="interest-games-check" name="interests" value="games" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                            <span>Video Games</span>
-                        </label>
-                        <label class="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition">
-                            <input type="checkbox" id="interest-reading-check" name="interests" value="reading" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                            <span>Reading</span>
-                        </label>
-                        <label class="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition">
-                            <input type="checkbox" id="interest-art-check" name="interests" value="art" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                            <span>Art</span>
-                        </label>
-                        <label class="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition">
-                            <input type="checkbox" id="interest-other-check" name="interests" value="other" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                            <span>Other</span>
-                        </label>
+                    <span class="block text-sm font-medium text-gray-700">What are your interests?</span>
+                    <div class="mt-2 space-y-2">
+                        <!-- Sports -->
+                        <div class="flex items-start">
+                            <div class="flex h-5 items-center">
+                                <input id="interest-sports" name="interest-sports" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="interest-sports" class="font-medium text-gray-700">Sports</label>
+                            </div>
+                        </div>
+                        <input type="text" name="sports-details" id="sports-details" class="hidden mt-1 mb-2 w-full rounded-md border-gray-300 shadow-sm sm:text-sm p-3" placeholder="What sports do you like?">
+
+                        <!-- Music -->
+                        <div class="flex items-start">
+                            <div class="flex h-5 items-center">
+                                <input id="interest-music" name="interest-music" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="interest-music" class="font-medium text-gray-700">Music</label>
+                            </div>
+                        </div>
+                        <input type="text" name="music-details" id="music-details" class="hidden mt-1 mb-2 w-full rounded-md border-gray-300 shadow-sm sm:text-sm p-3" placeholder="What music do you like?">
+
+                        <!-- Video Games -->
+                        <div class="flex items-start">
+                            <div class="flex h-5 items-center">
+                                <input id="interest-games" name="interest-games" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="interest-games" class="font-medium text-gray-700">Video Games</label>
+                            </div>
+                        </div>
+                        <input type="text" name="games-details" id="games-details" class="hidden mt-1 mb-2 w-full rounded-md border-gray-300 shadow-sm sm:text-sm p-3" placeholder="What video games do you like?">
+
+                        <!-- Reading -->
+                        <div class="flex items-start">
+                            <div class="flex h-5 items-center">
+                                <input id="interest-reading" name="interest-reading" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="interest-reading" class="font-medium text-gray-700">Reading</label>
+                            </div>
+                        </div>
+                        <input type="text" name="reading-details" id="reading-details" class="hidden mt-1 mb-2 w-full rounded-md border-gray-300 shadow-sm sm:text-sm p-3" placeholder="What kind of books do you like?">
+
+                        <!-- Art -->
+                        <div class="flex items-start">
+                            <div class="flex h-5 items-center">
+                                <input id="interest-art" name="interest-art" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="interest-art" class="font-medium text-gray-700">Art</label>
+                            </div>
+                        </div>
+                        <input type="text" name="art-details" id="art-details" class="hidden mt-1 mb-2 w-full rounded-md border-gray-300 shadow-sm sm:text-sm p-3" placeholder="What kind of art do you like?">
+
+                        <!-- Other -->
+                        <div class="flex items-start">
+                            <div class="flex h-5 items-center">
+                                <input id="interest-other-check" name="interest-other-check" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="interest-other-check" class="font-medium text-gray-700">Other</label>
+                            </div>
+                        </div>
+                        <input type="text" name="interest-other-text" id="interest-other-text" class="hidden mt-1 mb-2 w-full rounded-md border-gray-300 shadow-sm sm:text-sm p-3" placeholder="Please specify...">
                     </div>
-                    <!-- NEW conditional text inputs -->
-                    <input type="text" id="interest-sports-text" name="interest-sports-text" class="w-full mt-3 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 hidden" placeholder="What sports do you like?">
-                    <input type="text" id="interest-music-text" name="interest-music-text" class="w-full mt-3 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 hidden" placeholder="What music do you like?">
-                    <input type="text" id="interest-games-text" name="interest-games-text" class="w-full mt-3 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 hidden" placeholder="What video games do you like?">
-                    <input type="text" id="interest-reading-text" name="interest-reading-text" class="w-full mt-3 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 hidden" placeholder="What do you like to read?">
-                    <input type="text" id="interest-art-text" name="interest-art-text" class="w-full mt-3 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 hidden" placeholder="What kind of art do you like?">
-                    
-                    <!-- Existing "Other" text input -->
-                    <input type="text" id="interest-other-text" name="interest-other-text" class="w-full mt-3 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 hidden" placeholder="Please tell us your other interest!">
                 </div>
 
-                <!-- English Goal -->
+                <!-- My Goal -->
                 <div>
-                    <label for="goal" class="block text-sm font-medium text-gray-700 mb-1">My Goal at British Hills</label>
-                    <textarea id="goal" name="goal" rows="3" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., &quot;One thing I want to improve at British Hills is... my confidence in speaking!&quot;"></textarea>
+                    <label for="goal" class="block text-sm font-medium text-gray-700">My Goal at British Hills</label>
+                    <textarea id="goal" name="goal" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-3" placeholder="One thing I want to improve is..."></textarea>
                 </div>
 
                 <!-- Icebreaker -->
                 <div>
-                    <label for="icebreaker" class="block text-sm font-medium text-gray-700 mb-1">Icebreaker: If you could have one superpower, what would it be and why?</label>
-                    <textarea id="icebreaker" name="icebreaker" rows="3" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="If I could have one superpower, it would be..."></textarea>
+                    <label for="icebreaker" class="block text-sm font-medium text-gray-700">Icebreaker: If you could have one superpower, what would it be and why?</label>
+                    <textarea id="icebreaker" name="icebreaker" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-3" placeholder="If I could have one superpower, it would be..."></textarea>
                 </div>
 
                 <!-- Submit Button -->
-                <div class="text-right">
-                    <button type="submit" id="submit-btn" class="inline-flex justify-center py-3 px-6 border border-transparent shadow-lg text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                <div>
+                    <button type="submit" id="submit-btn" class="inline-flex justify-center rounded-md border border-transparent bg-blue-600 py-3 px-6 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 w-full sm:w-auto">
                         Submit My Profile
                     </button>
-                    <div id="form-error" class="text-red-600 text-sm mt-2 text-right h-5"></div>
+                    <p id="error-message" class="hidden mt-3 text-sm text-red-600"></p>
                 </div>
             </form>
-        </section>
+        </div>
 
-        <!-- Game Section -->
-        <section class="bg-white p-6 rounded-lg shadow-lg">
-            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Game: British vs. American English</h2>
-            <p class="text-gray-600 mb-6">How well do you know your British and American vocabulary? Click a British word on the left, then click its matching American word on the right!</p>
+        <!-- 3. British vs American English Game -->
+        <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-2">Game: British vs. American English</h2>
+            <p class="text-gray-600 mb-6">Match the British English word (left) to its American English equivalent (right). Good luck!</p>
             
-            <div id="game-message" class="text-center font-semibold text-lg mb-4 h-6"></div>
-
             <div class="flex flex-col md:flex-row md:space-x-8">
                 <!-- Column 1: British English -->
-                <div class="flex-1 mb-4 md:mb-0">
-                    <h3 class="text-lg font-semibold text-center text-blue-800 mb-3 border-b-2 border-blue-200 pb-2">British English (UK)</h3>
-                    <div id="british-terms" class="space-y-3">
-                        <!-- Terms will be injected by JS -->
-                    </div>
+                <div id="game-col-1" class="flex-1 space-y-3 mb-4 md:mb-0">
+                    <!-- Tiles will be injected by JS -->
                 </div>
-
                 <!-- Column 2: American English -->
-                <div class="flex-1">
-                    <h3 class="text-lg font-semibold text-center text-gray-800 mb-3 border-b-2 border-gray-200 pb-2">American English (US)</h3>
-                    <div id="american-terms" class="space-y-3">
-                        <!-- Terms will be injected by JS -->
-                    </div>
+                <div id="game-col-2" class="flex-1 space-y-3">
+                    <!-- Tiles will be injected by JS -->
                 </div>
             </div>
             
-            <div class="text-center mt-8">
-                <button id="reset-game" class="py-2 px-5 border border-gray-400 shadow-sm text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition">
-                    Reset Game
-                </button>
-            </div>
-        </section>
-
-    </main>
-    
-    <!-- Footer -->
-    <footer class="text-center py-6 mt-8 text-gray-500 text-sm">
-        <p>&copy; British Hills. All rights reserved.</p>
-    </footer>
-    
-    <!-- Thank You Modal (Hidden by default) -->
-    <div id="thank-you-modal" class="modal-backdrop hidden">
-        <div class="modal-content">
-            <h3 class="text-2xl font-semibold text-green-600 mb-4">Thank You!</h3>
-            <p class="text-lg text-gray-700 mb-6">We've successfully received your profile. We're so excited to see you at camp!</p>
-            <button id="close-modal-btn" class="py-2 px-5 border border-transparent shadow-sm text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700">
-                Close
+            <button id="game-reset-btn" class="mt-6 inline-flex justify-center rounded-md border border-transparent bg-gray-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                Reset Game
             </button>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="hidden fixed inset-0 z-10 overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <!-- Background overlay -->
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <!-- Modal content -->
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+                <div>
+                    <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                        <!-- Heroicon: check -->
+                        <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-5">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Thank You!</h3>
+                        <div class="mt-2">
+                            <p class="text-sm text-gray-500">Your profile has been submitted. We look forward to seeing you at the camp!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 sm:mt-6">
+                    <button id="close-modal-btn" type="button" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm">
+                        Got it!
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- JavaScript -->
+
+    <!-- Firebase and App Logic -->
     <script type="module">
-        // Import Firebase modules
+        // Import Firebase SDKs
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        //
-        // --- START OF FIREBASE CONFIG ---
-        //
-        
-        // --- PASTE YOUR FIREBASE CONFIG HERE ---
-        // (Copy it from your Firebase Project Settings)
-        // It will look like this:
-        // const firebaseConfig = {
-        //   apiKey: "AIzaSy...",
-        //   authDomain: "your-project.firebaseapp.com",
-        //   projectId: "your-project",
-        //   storageBucket: "your-project.appspot.com",
-        //   messagingSenderId: "123456789",
-        //   appId: "1:123456789:web:abcdefg"
-        // };
-        // 
-        // (This is just an example, yours will be different. If you don't paste it, this will not work.)
+        // --- PASTE YOUR FIREBASE CONFIG OBJECT HERE ---
         const firebaseConfig = {
           apiKey: "AIzaSyCXr9MHZ6vRJ6_u5zWL7x-OatnxEGj2VYU",
           authDomain: "long-english-camp.firebaseapp.com",
@@ -244,315 +236,254 @@
           messagingSenderId: "881175905434",
           appId: "1:881175905434:web:ac95bb0b19274f8c820b23"
         };
+        // ---------------------------------------------
+
+        // --- Initialize Firebase and App State ---
+        let db; // <-- Moved db variable
+        let isConnected = false;
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
         
-        // --- END OF FIREBASE CONFIG ---
-        //
+        // ** DEBUGGING: Moved db initialization here and added logs **
+        try {
+            db = getFirestore(app);
+            console.log("Firestore initialized (db variable set):", db);
+            setLogLevel('debug'); // Enable detailed Firestore logging
+        } catch (error) {
+            console.error("Firestore initialization error:", error);
+        }
 
-        // Module-level variables for Firebase
-        let db, auth;
+        const profileForm = document.getElementById('profile-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const errorMessage = document.getElementById('error-message');
+        const successModal = document.getElementById('success-modal');
+        const closeModalBtn = document.getElementById('close-modal-btn');
 
-        /**
-         * Initializes Firebase and authenticates the user.
-         */
-        async function initializeFirebase() {
+        // --- Firebase Connection ---
+        signInAnonymously(auth)
+          .then(() => {
+            console.log("Firebase anonymous sign-in successful.");
+            isConnected = true;
+          })
+          .catch((error) => {
+            console.error("Firebase sign-in error:", error);
+            errorMessage.textContent = "Error: Could not connect to auth. Please refresh.";
+            errorMessage.classList.remove('hidden');
+          });
+
+        // --- Form Logic: Conditional Inputs ---
+        const otherCheck = document.getElementById('interest-other-check');
+        const otherText = document.getElementById('interest-other-text');
+        otherCheck.addEventListener('change', () => {
+            otherText.classList.toggle('hidden', !otherCheck.checked);
+        });
+
+        // Helper for conditional interest fields
+        function setupConditionalInput(checkId, inputId) {
+            const check = document.getElementById(checkId);
+            const input = document.getElementById(inputId);
+            check.addEventListener('change', () => {
+                input.classList.toggle('hidden', !check.checked);
+            });
+        }
+        setupConditionalInput('interest-sports', 'sports-details');
+        setupConditionalInput('interest-music', 'music-details');
+        setupConditionalInput('interest-games', 'games-details');
+        setupConditionalInput('interest-reading', 'reading-details');
+        setupConditionalInput('interest-art', 'art-details');
+
+        // --- Form Logic: Submission ---
+        profileForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // ** DEBUGGING: Added more detailed check **
+            if (!db || !isConnected) {
+                console.warn("Form submit failed. !db or !isConnected", { db, isConnected });
+                errorMessage.textContent = 'Error: Not connected. Please refresh the page.';
+                errorMessage.classList.remove('hidden');
+                return;
+            }
+
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            errorMessage.classList.add('hidden');
+
             try {
-                if (!firebaseConfig.apiKey) {
-                    console.error("Firebase config is missing. Please paste it into the script.");
-                    const formError = document.getElementById('form-error');
-                    if (formError) {
-                        formError.textContent = "Error: Page is not configured. Please contact site admin.";
-                    }
-                    return { db: null, auth: null };
-                }
+                // 1. Get all form data
+                const formData = new FormData(profileForm);
+                const profileData = {
+                    fullName: formData.get('full-name'),
+                    nickname: formData.get('nickname'),
+                    interests: {
+                        sports: formData.get('interest-sports') === 'on',
+                        sportsDetails: formData.get('sports-details'),
+                        music: formData.get('interest-music') === 'on',
+                        musicDetails: formData.get('music-details'),
+                        games: formData.get('interest-games') === 'on',
+                        gamesDetails: formData.get('games-details'),
+                        reading: formData.get('interest-reading') === 'on',
+                        readingDetails: formData.get('reading-details'),
+                        art: formData.get('interest-art') === 'on',
+                        artDetails: formData.get('art-details'),
+                        other: formData.get('interest-other-check') === 'on',
+                        otherDetails: formData.get('interest-other-text'),
+                    },
+                    goal: formData.get('goal'),
+                    icebreaker: formData.get('icebreaker'),
+                    submittedAt: new Date().toISOString()
+                };
 
-                // Initialize Firebase
-                const app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-                setLogLevel('Debug'); // Enable debug logging for Firestore
+                // 2. Send data to Firestore
+                // We will use the simple path we defined in our rules
+                console.log("Attempting to add document to 'studentProfiles'...");
+                const docRef = await addDoc(collection(db, "studentProfiles"), profileData);
+                console.log("Document written with ID: ", docRef.id);
 
-                // Sign in the user anonymously
-                await signInAnonymously(auth);
-                console.log("User signed in anonymously.");
-                
-                if (auth.currentUser) {
-                    console.log("User ID:", auth.currentUser.uid);
-                }
-                
-                return { db, auth };
+                // 3. Show success
+                successModal.classList.remove('hidden');
+                profileForm.reset();
+                // Manually hide conditional fields
+                ['sports-details', 'music-details', 'games-details', 'reading-details', 'art-details', 'interest-other-text'].forEach(id => {
+                    document.getElementById(id).classList.add('hidden');
+                });
+
 
             } catch (error) {
-                console.error("Firebase initialization failed:", error);
-                const formError = document.getElementById('form-error');
-                if (formError) {
-                    formError.textContent = "Error: Could not connect to service. Please refresh.";
+                // 4. Show error
+                console.error("Error adding document: ", error);
+                errorMessage.textContent = `Error: ${error.message}. Please try again.`;
+                errorMessage.classList.remove('hidden');
+            } finally {
+                // 5. Reset button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit My Profile';
+            }
+        });
+
+        // Close success modal
+        closeModalBtn.addEventListener('click', () => {
+            successModal.classList.add('hidden');
+        });
+
+
+        // --- Game Logic ---
+        const gameData = {
+            'Trousers': 'Pants',
+            'Lift': 'Elevator',
+            'Biscuit': 'Cookie',
+            'Flat': 'Apartment',
+            'Queue': 'Line',
+            'Rubbish': 'Garbage / Trash',
+            'Chips': 'French Fries',
+            'Post': 'Mail'
+        };
+
+        const col1 = document.getElementById('game-col-1');
+        const col2 = document.getElementById('game-col-2');
+        const resetBtn = document.getElementById('game-reset-btn');
+        let selectedTile = null;
+        let correctMatches = 0;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function createTile(text, column, pair) {
+            const tile = document.createElement('div');
+            tile.textContent = text;
+            tile.dataset.pair = pair;
+            tile.dataset.column = column;
+            tile.className = 'game-tile p-4 bg-white border rounded-lg shadow-sm cursor-pointer hover:bg-gray-50';
+            
+            tile.addEventListener('click', onTileClick);
+            return tile;
+        }
+
+        function initGame() {
+            col1.innerHTML = '';
+            col2.innerHTML = '';
+            selectedTile = null;
+            correctMatches = 0;
+
+            const britishWords = Object.keys(gameData);
+            const americanWords = Object.values(gameData);
+            const shuffledAmerican = shuffle([...americanWords]);
+
+            britishWords.forEach(word => {
+                col1.appendChild(createTile(word, 1, word));
+            });
+            shuffledAmerican.forEach(word => {
+                const britishWord = Object.keys(gameData).find(key => gameData[key] === word);
+                col2.appendChild(createTile(word, 2, britishWord));
+            });
+        }
+
+        function onTileClick(e) {
+            const clickedTile = e.target;
+
+            // If this tile is already correct, do nothing
+            if (clickedTile.classList.contains('correct')) {
+                return;
+            }
+
+            // If no tile is selected
+            if (!selectedTile) {
+                // Can't select from the same column twice
+                document.querySelectorAll(`[data-column="${clickedTile.dataset.column}"]`).forEach(t => t.classList.remove('selected'));
+                clickedTile.classList.add('selected');
+                selectedTile = clickedTile;
+                return;
+            }
+
+            // If a tile is already selected, check for a match
+            // Don't allow clicking the same tile or a tile in the same column
+            if (selectedTile === clickedTile || selectedTile.dataset.column === clickedTile.dataset.column) {
+                selectedTile.classList.remove('selected');
+                clickedTile.classList.add('selected');
+                selectedTile = clickedTile;
+                return;
+            }
+
+            // Check for match
+            if (selectedTile.dataset.pair === clickedTile.dataset.pair) {
+                // Correct!
+                selectedTile.classList.remove('selected');
+                selectedTile.classList.add('correct');
+                clickedTile.classList.add('correct');
+                selectedTile.style.pointerEvents = 'none';
+                clickedTile.style.pointerEvents = 'none';
+                selectedTile = null;
+                correctMatches++;
+                
+                if (correctMatches === Object.keys(gameData).length) {
+                    // Game over! You could add a message here.
                 }
-                return { db: null, auth: null };
+            } else {
+                // Incorrect
+                selectedTile.classList.add('incorrect');
+                clickedTile.classList.add('incorrect');
+                
+                const st = selectedTile; // Store for timeout
+                setTimeout(() => {
+                    st.classList.remove('selected', 'incorrect');
+                    clickedTile.classList.remove('selected', 'incorrect');
+                }, 800);
+                selectedTile = null;
             }
         }
 
+        resetBtn.addEventListener('click', initGame);
 
-        document.addEventListener('DOMContentLoaded', async () => {
+        // Start the game on page load
+        initGame();
 
-            // Initialize Firebase first
-            // Note: appId is not needed here anymore, it's in the config
-            await initializeFirebase();
-
-            // --- Profile Form Logic ---
-            const profileForm = document.getElementById('profile-form');
-            // ... (rest of the variable declarations are the same) ...
-            const artCheck = document.getElementById('interest-art-check');
-            const artText = document.getElementById('interest-art-text');
-
-            const modal = document.getElementById('thank-you-modal');
-            const closeModalBtn = document.getElementById('close-modal-btn');
-
-            // Show/hide 'Other' text field
-            otherCheck.addEventListener('change', () => {
-                otherText.classList.toggle('hidden', !otherCheck.checked);
-            });
-
-            // --- NEW event listeners for conditional fields ---
-            sportsCheck.addEventListener('change', () => {
-                sportsText.classList.toggle('hidden', !sportsCheck.checked);
-            });
-            musicCheck.addEventListener('change', () => {
-                musicText.classList.toggle('hidden', !musicCheck.checked);
-            });
-            gamesCheck.addEventListener('change', () => {
-                gamesText.classList.toggle('hidden', !gamesCheck.checked);
-            });
-            readingCheck.addEventListener('change', () => {
-                readingText.classList.toggle('hidden', !readingCheck.checked);
-            });
-            artCheck.addEventListener('change', () => {
-                artText.classList.toggle('hidden', !artCheck.checked);
-            });
-
-            // Handle form submission
-            profileForm.addEventListener('submit', async (e) => {
-                e.preventDefault(); // Stop actual form submission
-                
-                // Ensure Firebase is initialized and user is signed in
-                if (!db || !auth || !auth.currentUser) {
-                    formError.textContent = 'Error: Not connected. Please refresh the page.';
-                    return;
-                }
-                
-                const fullName = fullNameInput.value.trim();
-                if (!fullName) {
-                    formError.textContent = 'Please enter your full name.';
-                    return;
-                }
-
-                // 2. Get data from the form
-                const profileData = {
-                    userId: auth.currentUser.uid, // Add the user's anonymous ID for reference
-                    fullName: fullName,
-                    nickname: document.getElementById('nickname').value.trim(),
-                    interests: interests,
-                    
-                    // --- NEW data points from conditional fields ---
-                    sportsDetail: sportsText.value.trim(),
-                    musicDetail: musicText.value.trim(),
-                    gamesDetail: gamesText.value.trim(),
-                    readingDetail: readingText.value.trim(),
-                    artDetail: artText.value.trim(),
-                    
-                    // --- Original "Other" field ---
-                    otherInterest: otherText.value.trim(),
-                    englishGoal: document.getElementById('goal').value.trim(),
-                    icebreaker: document.getElementById('icebreaker').value.trim(),
-                    submittedAt: new Date().toISOString() // Add a timestamp
-                };
-
-                try {
-                    // 3. Add data to our new, simple "studentProfiles" collection
-                    const docRef = await addDoc(collection(db, 'studentProfiles'), profileData);
-                    
-                    console.log("Document written with ID: ", docRef.id);
-                    
-                    // Show success modal
-                    modal.classList.remove('hidden');
-                    
-                    // Reset the form
-                    profileForm.reset();
-                    
-                    // --- NEW: Hide all conditional text fields again ---
-                    otherText.classList.add('hidden');
-                    sportsText.classList.add('hidden');
-                    musicText.classList.add('hidden');
-                    gamesText.classList.add('hidden');
-                    readingText.classList.add('hidden');
-                    artText.classList.add('hidden');
-
-                } catch (error) {
-                    console.error("Error adding document: ", error);
-                    formError.textContent = 'Error: Could not submit profile. Please try again.';
-                } finally {
-                    // Reset button state
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Submit My Profile';
-                }
-            });
-
-            // Close the modal
-            closeModalBtn.addEventListener('click', () => {
-                modal.classList.add('hidden');
-            });
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.add('hidden');
-                }
-            });
-
-
-            // --- Matching Game Logic (Unchanged) ---
-            const gameData = {
-                'Trousers': 'Pants',
-                'Lift': 'Elevator',
-                'Biscuit': 'Cookie',
-                'Flat': 'Apartment',
-                'Holiday': 'Vacation',
-                'Queue': 'Line',
-                'Lorry': 'Truck',
-                'Post': 'Mail'
-            };
-
-            const britishTermsContainer = document.getElementById('british-terms');
-            const americanTermsContainer = document.getElementById('american-terms');
-            const gameMessage = document.getElementById('game-message');
-            const resetGameBtn = document.getElementById('reset-game');
-
-            let selectedBritishTerm = null;
-            let correctMatches = 0;
-
-            function createTermElement(term, type) {
-                const el = document.createElement('div');
-                el.textContent = term;
-                el.dataset.term = term;
-                el.dataset.type = type;
-                el.className = 'match-item p-4 bg-white border border-gray-300 rounded-lg shadow-sm text-center font-medium';
-                return el;
-            }
-
-            function shuffleArray(array) {
-                for (let i = array.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]];
-                }
-                return array;
-            }
-            
-            function initGame() {
-                // Clear containers
-                britishTermsContainer.innerHTML = '';
-                americanTermsContainer.innerHTML = '';
-                gameMessage.textContent = '';
-                
-                // Reset game state
-                selectedBritishTerm = null;
-                correctMatches = 0;
-
-                const britishTerms = Object.keys(gameData);
-                const americanTerms = shuffleArray(Object.values(gameData));
-                
-                // Create and append term elements
-                britishTerms.forEach(term => {
-                    const el = createTermElement(term, 'british');
-                    el.addEventListener('click', onBritishTermClick);
-                    britishTermsContainer.appendChild(el);
-                });
-
-                americanTerms.forEach(term => {
-                    const el = createTermElement(term, 'american');
-                    el.addEventListener('click', onAmericanTermClick);
-                    americanTermsContainer.appendChild(el);
-                });
-            }
-
-            function onBritishTermClick(e) {
-                const clickedItem = e.target;
-                if (clickedItem.classList.contains('correct')) {
-                    return; // Already matched
-                }
-                
-                // Deselect if clicking the same one
-                if (clickedItem === selectedBritishTerm) {
-                    selectedBritishTerm.classList.remove('selected');
-                    selectedBritishTerm = null;
-                    return;
-                }
-
-                // Deselect previous
-                if (selectedBritishTerm) {
-                    selectedBritishTerm.classList.remove('selected');
-                }
-                
-                // Select new one
-                selectedBritishTerm = clickedItem;
-                selectedBritishTerm.classList.add('selected');
-                gameMessage.textContent = '';
-            }
-
-            function onAmericanTermClick(e) {
-                const clickedAmericanItem = e.target;
-                if (!selectedBritishTerm || clickedAmericanItem.classList.contains('correct')) {
-                    return; // Nothing selected or item already matched
-                }
-
-                const britishTerm = selectedBritishTerm.dataset.term;
-                const americanTerm = clickedAmericanItem.dataset.term;
-
-                // Check for match
-                if (gameData[britishTerm] === americanTerm) {
-                    // --- CORRECT MATCH ---
-                    selectedBritishTerm.classList.add('correct');
-                    selectedBritishTerm.classList.remove('selected');
-                    clickedAmericanItem.classList.add('correct');
-                    
-                    // Remove event listeners
-                    selectedBritishTerm.removeEventListener('click', onBritishTermClick);
-                    clickedAmericanItem.removeEventListener('click', onAmericanTermClick);
-
-                    selectedBritishTerm = null;
-                    correctMatches++;
-                    gameMessage.textContent = 'Correct!';
-                    gameMessage.style.color = '#059669'; // green-600
-                    
-                    // Check for win
-                    if (correctMatches === Object.keys(gameData).length) {
-                        gameMessage.textContent = 'Well done! You matched them all!';
-                    }
-                } else {
-                    // --- INCORRECT MATCH ---
-                    gameMessage.textContent = 'Not quite! Try again.';
-                    gameMessage.style.color = '#DC2626'; // red-600
-                    
-                    // Add shake animation
-                    selectedBritishTerm.classList.add('incorrect');
-                    clickedAmericanItem.classList.add('incorrect');
-                    
-                    // Remove shake after animation ends
-                    setTimeout(() => {
-                        selectedBritishTerm.classList.remove('incorrect');
-                        clickedAmericanItem.classList.remove('incorrect');
-                        // Deselect the British term to force re-selection
-                        selectedBritishTerm.classList.remove('selected');
-                        selectedBritishTerm = null;
-                    }, 500);
-                }
-            }
-
-            // --- Event Listeners ---
-            resetGameBtn.addEventListener('click', initGame);
-
-            // Initialize the game on load
-            initGame();
-        });
     </script>
 </body>
 </html>
-
 
 
