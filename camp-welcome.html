@@ -50,7 +50,8 @@
       }
       .game-item.selected {
         background-color: #dbeafe; /* blue-100 */
-        border-color: #60a5fa; /* blue-400 */
+        border-color: #3b82f6; /* blue-600 */
+        border-width: 2px;
         transform: scale(1.03);
       }
       .game-item.correct {
@@ -76,20 +77,27 @@
       }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 antialiased">
+<body class="bg-sky-50 text-gray-800 antialiased"> <!-- Changed bg-gray-50 to bg-sky-50 -->
 
     <!-- Main Content Container -->
     <div class="container mx-auto max-w-4xl p-4 md:p-8 space-y-12">
 
         <!-- Section 1: Header -->
-        <header class="text-center">
-            <h1 class="text-4xl md:text-5xl font-bold text-blue-700">Welcome to the Camp!</h1>
-            <p class="mt-2 text-lg text-gray-600">We're excited to have you at British Hills.</p>
+        <!-- Updated to be a gradient hero section -->
+        <header class="text-center p-8 md:p-12 rounded-lg bg-gradient-to-br from-blue-600 to-teal-500 text-white shadow-lg">
+            <h1 class="text-4xl md:text-5xl font-bold">Welcome to the Camp!</h1>
+            <p class="mt-2 text-lg text-blue-100">We're excited to have you at British Hills.</p>
         </header>
 
-        <!-- Section 2: Welcome Note -->
-        <section class="bg-white p-6 md:p-8 rounded-lg shadow-sm border border-gray-200">
-            <h2 class="text-2xl font-semibold text-blue-600 mb-4">A Quick Welcome</h2>
+        <!-- Section 2: Welcome Note (RESTORED) -->
+        <section class="bg-white p-6 md:p-8 rounded-lg shadow-md">
+            <div class="flex items-center gap-3 mb-4">
+                <!-- Sparkles Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                </svg>
+                <h2 class="text-2xl font-semibold text-blue-600">A Quick Welcome</h2>
+            </div>
             <div class="space-y-4 text-gray-700">
                 <p>
                     Hello and welcome! We've put together this little page for you to share a bit about yourself with our camp leaders.
@@ -103,9 +111,15 @@
             </div>
         </section>
 
-        <!-- Section 3: Profile Form -->
-        <form id="profile-form" class="bg-white p-6 md:p-8 rounded-lg shadow-sm border border-gray-200 space-y-6">
-            <h2 class="text-2xl font-semibold text-blue-600 border-b border-gray-200 pb-3">My Camp Profile (Optional)</h2>
+        <!-- Section 3: Profile Form (RESTORED) -->
+        <form id="profile-form" class="bg-white p-6 md:p-8 rounded-lg shadow-md space-y-6">
+            <div class="flex items-center gap-3 border-b border-gray-200 pb-3">
+                <!-- User Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <h2 class="text-2xl font-semibold text-blue-600">My Camp Profile (Optional)</h2>
+            </div>
             
             <!-- Full Name (Required) -->
             <div>
@@ -124,12 +138,13 @@
                 <label class="block text-sm font-medium text-gray-700 mb-2">What are your interests?</label>
                 <div id="interest-tags" class="flex flex-wrap gap-3">
                     <!-- JS will look for .interest-tag and data-interest -->
-                    <button type="button" class="interest-tag px-4 py-2 rounded-full font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200" data-interest="sports">Sports</button>
-                    <button type="button" class="interest-tag px-4 py-2 rounded-full font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200" data-interest="music">Music</button>
-                    <button type="button" class="interest-tag px-4 py-2 rounded-full font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200" data-interest="video-games">Video Games</button>
-                    <button type="button" class="interest-tag px-4 py-2 rounded-full font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200" data-interest="reading">Reading</button>
-                    <button type="button" class="interest-tag px-4 py-2 rounded-full font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200" data-interest="art">Art</button>
-                    <button type="button" class="interest-tag px-4 py-2 rounded-full font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200" data-interest="other">Other</button>
+                    <!-- Updated tag styling to be blue-based -->
+                    <button type="button" class="interest-tag px-4 py-2 rounded-full font-medium bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 hover:shadow-sm" data-interest="sports">Sports</button>
+                    <button type="button" class="interest-tag px-4 py-2 rounded-full font-medium bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 hover:shadow-sm" data-interest="music">Music</button>
+                    <button type="button" class="interest-tag px-4 py-2 rounded-full font-medium bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 hover:shadow-sm" data-interest="video-games">Video Games</button>
+                    <button type="button" class="interest-tag px-4 py-2 rounded-full font-medium bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 hover:shadow-sm" data-interest="reading">Reading</button>
+                    <button type="button" class="interest-tag px-4 py-2 rounded-full font-medium bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 hover:shadow-sm" data-interest="art">Art</button>
+                    <button type="button" class="interest-tag px-4 py-2 rounded-full font-medium bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 hover:shadow-sm" data-interest="other">Other</button>
                 </div>
             </div>
             
@@ -164,10 +179,19 @@
         </form>
 
         <!-- Section 4: Game -->
-        <section class="bg-white p-6 md:p-8 rounded-lg shadow-sm border border-gray-200">
+        <!-- Updated shadow and added an icon -->
+        <section class="bg-white p-6 md:p-8 rounded-lg shadow-md">
             <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b border-gray-200 pb-3 mb-6 gap-4">
-                <h2 class="text-2xl font-semibold text-blue-600">Game: British vs. American</h2>
-                <button id="reset-game-btn" class="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-md shadow-sm hover:bg-gray-200 border border-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                <div class="flex items-center gap-3">
+                    <!-- Puzzle Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 011-1h1a2 2 0 100-4H7a1 1 0 01-1-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+                    </svg>
+                    <!-- Title updated as requested -->
+                    <h2 class="text-2xl font-semibold text-blue-600">Test Yourself: British English vs. American English</h2>
+                </div>
+                <!-- Updated button styling -->
+                <button id="reset-game-btn" class="px-4 py-2 bg-blue-50 text-blue-700 font-medium rounded-md shadow-sm hover:bg-blue-100 border border-blue-200 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                     Reset Game
                 </button>
             </div>
@@ -193,8 +217,9 @@
     </div> <!-- End Main Container -->
     
     <!-- Success/Error Modal -->
+    <!-- Updated modal styling for a softer look -->
     <div id="modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center p-4 z-50">
-        <div id="modal-content" class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md text-center transform transition-all scale-95 opacity-0">
+        <div id="modal-content" class="bg-white rounded-xl shadow-xl p-8 w-full max-w-md text-center transform transition-all scale-95 opacity-0">
             <h3 id="modal-title" class="text-2xl font-semibold text-gray-900"></h3>
             <p id="modal-message" class="mt-2 text-gray-600"></p>
             <button id="close-modal-btn" class="mt-6 px-5 py-2 bg-blue-600 text-white font-semibold rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
@@ -238,112 +263,179 @@
         } catch (error) {
             console.error("Firebase Initialization Error:", error);
             // Show a critical error to the user
-            showModal("Initialization Failed", "Could not connect to the server. Please refresh the page.", true);
+            // We need to define showModal *before* it can be called here.
+            // Let's defer this to a window.onload check, or just log to console.
+            // For now, the modal function is defined later, so this would fail.
+            // We will rely on the later checks.
         }
 
         // --- DOM Elements ---
-        const profileForm = document.getElementById('profile-form');
-        const submitBtn = document.getElementById('submit-btn');
-        const interestTagsContainer = document.getElementById('interest-tags');
-        const interestInputsContainer = document.getElementById('interest-inputs');
+        // All these are now wrapped in DOMContentLoaded to ensure elements exist
+        let profileForm, submitBtn, interestTagsContainer, interestInputsContainer;
+        let modal, modalContent, modalTitle, modalMessage, closeModalBtn;
+        let britishCol, americanCol, resetGameBtn;
 
-        // Modal Elements
-        const modal = document.getElementById('modal');
-        const modalContent = document.getElementById('modal-content');
-        const modalTitle = document.getElementById('modal-title');
-        const modalMessage = document.getElementById('modal-message');
-        const closeModalBtn = document.getElementById('close-modal-btn');
+        // --- Modal Logic (defined early so it can be used by init error) ---
         
-        // Game Elements
-        const britishCol = document.getElementById('british-col');
-        const americanCol = document.getElementById('american-col');
-        const resetGameBtn = document.getElementById('reset-game-btn');
+        function showModal(title, message, isError = false) {
+            // Ensure modal elements are found *before* using them
+            if (!modal) {
+                modal = document.getElementById('modal');
+                modalContent = document.getElementById('modal-content');
+                modalTitle = document.getElementById('modal-title');
+                modalMessage = document.getElementById('modal-message');
+                closeModalBtn = document.getElementById('close-modal-btn');
+
+                // Add listeners only once
+                closeModalBtn.addEventListener('click', hideModal);
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        hideModal();
+                    }
+                });
+            }
+
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+            
+            // Clear any error styling
+            modalTitle.classList.remove('text-red-600');
+            closeModalBtn.classList.remove('bg-red-600', 'hover:bg-red-700', 'focus:ring-red-500');
+            
+            // Add error styling if needed
+            if (isError) {
+                modalTitle.classList.add('text-red-600');
+                closeModalBtn.classList.add('bg-red-600', 'hover:bg-red-700', 'focus:ring-red-500');
+            } else {
+                closeModalBtn.classList.add('bg-blue-600', 'hover:bg-blue-700', 'focus:ring-blue-500');
+            }
+            
+            modal.classList.remove('hidden');
+            // Trigger transition
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+        
+        function hideModal() {
+            if (!modalContent) return; // Not initialized
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                if (modal) modal.classList.add('hidden');
+            }, 200); // Match transition duration
+        }
+        
+        // REMOVED: Check for init error (moved inside DOMContentLoaded)
+        /*
+        if (!app) {
+             showModal("Initialization Failed", "Could not connect to the server. Please refresh the page.", true);
+        }
+        */
 
 
         // --- 1. Form Logic ---
         
-        // Handle clicking interest tags
-        interestTagsContainer.addEventListener('click', (e) => {
-            if (!e.target.classList.contains('interest-tag')) return;
-            
-            const btn = e.target;
-            const interest = btn.dataset.interest;
-            const inputField = document.getElementById(`${interest}-input`);
-            
-            // Toggle tag visual state
-            btn.classList.toggle('selected');
-            btn.classList.toggle('bg-gray-100');
-            btn.classList.toggle('text-gray-700');
-            btn.classList.toggle('bg-blue-600');
-            btn.classList.toggle('text-white');
-            
-            // Toggle corresponding input field
-            if (inputField) {
-                inputField.classList.toggle('hidden');
-            }
-        });
+        function initFormLogic() {
+            profileForm = document.getElementById('profile-form');
+            submitBtn = document.getElementById('submit-btn');
+            interestTagsContainer = document.getElementById('interest-tags');
+            interestInputsContainer = document.getElementById('interest-inputs');
 
-        // Handle form submission
-        profileForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!user) {
-                showModal("Authentication Error", "Not connected. Please refresh the page and try again.", true);
-                return;
-            }
-            
-            // Show submitting state
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Submitting...';
-
-            const formData = new FormData(profileForm);
-            const interests = {};
-            
-            // Collect selected interests and their details
-            document.querySelectorAll('.interest-tag.selected').forEach(tag => {
-                const interest = tag.dataset.interest;
-                const detail = formData.get(`${interest}-detail`) || "";
-                interests[interest] = detail;
-            });
-
-            // Prepare data for Firestore
-            const profileData = {
-                userId: user.uid, // Store the anonymous user ID
-                fullName: formData.get('full-name'),
-                nickname: formData.get('nickname'),
-                goal: formData.get('goal'),
-                superpower: formData.get('superpower'),
-                interests: interests,
-                createdAt: serverTimestamp() // Use server-side timestamp
-            };
-            
-            try {
-                // Save to Firestore
-                const docRef = await addDoc(collection(db, "studentProfiles"), profileData);
-                console.log("Document written with ID: ", docRef.id);
-                
-                // Show success modal
-                showModal("Thank You!", "Your profile has been submitted successfully.");
-                
-                // Reset form
-                profileForm.reset();
-                document.querySelectorAll('.interest-tag.selected').forEach(tag => {
-                    tag.classList.remove('selected', 'bg-blue-600', 'text-white');
-                    tag.classList.add('bg-gray-100', 'text-gray-700');
+            // The error was here: these elements might be null if script runs too early
+            // OR if the elements are missing. We fixed the missing elements.
+            if (interestTagsContainer) {
+                interestTagsContainer.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('interest-tag')) return;
+                    
+                    const btn = e.target;
+                    const interest = btn.dataset.interest;
+                    const inputField = document.getElementById(`${interest}-input`);
+                    
+                    // Toggle tag visual state
+                    btn.classList.toggle('selected');
+                    btn.classList.toggle('bg-blue-50');
+                    btn.classList.toggle('text-blue-700');
+                    btn.classList.toggle('border-blue-200');
+                    btn.classList.toggle('bg-blue-600');
+                    btn.classList.toggle('text-white');
+                    btn.classList.toggle('border-blue-600'); // Add/remove selected border
+                    
+                    // Toggle corresponding input field
+                    if (inputField) {
+                        inputField.classList.toggle('hidden');
+                    }
                 });
-                document.querySelectorAll('#interest-inputs input').forEach(input => {
-                    input.classList.add('hidden');
-                });
-                
-            } catch (error) {
-                console.error("Error adding document: ", error);
-                // Show error modal
-                showModal("Submission Failed", "There was an error submitting your profile. Please try again.", true);
-            } finally {
-                // Reset button state
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Submit Profile';
+            } else {
+                console.error("Could not find 'interest-tags' container.");
             }
-        });
+
+            if(profileForm) {
+                profileForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    if (!user) {
+                        showModal("Authentication Error", "Not connected. Please refresh the page and try again.", true);
+                        return;
+                    }
+                    
+                    // Show submitting state
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Submitting...';
+
+                    const formData = new FormData(profileForm);
+                    const interests = {};
+                    
+                    // Collect selected interests and their details
+                    document.querySelectorAll('.interest-tag.selected').forEach(tag => {
+                        const interest = tag.dataset.interest;
+                        const detail = formData.get(`${interest}-detail`) || "";
+                        interests[interest] = detail;
+                    });
+
+                    // Prepare data for Firestore
+                    const profileData = {
+                        userId: user.uid, // Store the anonymous user ID
+                        fullName: formData.get('full-name'),
+                        nickname: formData.get('nickname'),
+                        goal: formData.get('goal'),
+                        superpower: formData.get('superpower'),
+                        interests: interests,
+                        createdAt: serverTimestamp() // Use server-side timestamp
+                    };
+                    
+                    try {
+                        // Save to Firestore
+                        const docRef = await addDoc(collection(db, "studentProfiles"), profileData);
+                        console.log("Document written with ID: ", docRef.id);
+                        
+                        // Show success modal
+                        showModal("Thank You!", "Your profile has been submitted successfully.");
+                        
+                        // Reset form
+                        profileForm.reset();
+                        document.querySelectorAll('.interest-tag.selected').forEach(tag => {
+                            tag.classList.remove('selected', 'bg-blue-600', 'text-white', 'border-blue-600');
+                            tag.classList.add('bg-blue-50', 'text-blue-700', 'border-blue-200');
+                        });
+                        document.querySelectorAll('#interest-inputs input').forEach(input => {
+                            input.classList.add('hidden');
+                        });
+                        
+                    } catch (error) {
+                        console.error("Error adding document: ", error);
+                        // Show error modal
+                        showModal("Submission Failed", "There was an error submitting your profile. Please try again.", true);
+                    } finally {
+                        // Reset button state
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Submit Profile';
+                    }
+                });
+            } else {
+                console.error("Could not find 'profile-form'.");
+            }
+        }
 
         // --- 2. Game Logic ---
         
@@ -374,13 +466,24 @@
         // Function to create a game item element
         function createGameItem(text) {
             const item = document.createElement('div');
-            item.className = 'game-item p-3 rounded-md border border-gray-300 bg-white shadow-sm cursor-pointer hover:bg-gray-50 text-center font-medium';
+            // Updated item styling
+            item.className = 'game-item p-3 rounded-lg border border-gray-200 bg-white shadow-sm cursor-pointer hover:bg-gray-50 hover:border-blue-300 text-center font-medium';
             item.textContent = text;
             return item;
         }
         
         // Initialize the game board
         function initGame() {
+            // Find elements here
+            britishCol = document.getElementById('british-col');
+            americanCol = document.getElementById('american-col');
+            resetGameBtn = document.getElementById('reset-game-btn');
+
+            if (!britishCol || !americanCol || !resetGameBtn) {
+                console.error("Game elements not found.");
+                return;
+            }
+
             britishCol.innerHTML = '';
             americanCol.innerHTML = '';
             selectedBritish = null;
@@ -397,35 +500,36 @@
             americanWords.forEach(word => {
                 americanCol.appendChild(createGameItem(word));
             });
+
+            // Add listeners
+            britishCol.addEventListener('click', (e) => {
+                const item = e.target;
+                if (!item.classList.contains('game-item') || item.classList.contains('correct')) return;
+                
+                if (selectedBritish) {
+                    selectedBritish.classList.remove('selected');
+                }
+                selectedBritish = item;
+                selectedBritish.classList.add('selected');
+                
+                checkMatch();
+            });
+            
+            americanCol.addEventListener('click', (e) => {
+                const item = e.target;
+                if (!item.classList.contains('game-item') || item.classList.contains('correct')) return;
+                
+                if (selectedAmerican) {
+                    selectedAmerican.classList.remove('selected');
+                }
+                selectedAmerican = item;
+                selectedAmerican.classList.add('selected');
+                
+                checkMatch();
+            });
+            
+            resetGameBtn.addEventListener('click', initGame);
         }
-        
-        // Handle clicks on the British column
-        britishCol.addEventListener('click', (e) => {
-            const item = e.target;
-            if (!item.classList.contains('game-item') || item.classList.contains('correct')) return;
-            
-            if (selectedBritish) {
-                selectedBritish.classList.remove('selected');
-            }
-            selectedBritish = item;
-            selectedBritish.classList.add('selected');
-            
-            checkMatch();
-        });
-        
-        // Handle clicks on the American column
-        americanCol.addEventListener('click', (e) => {
-            const item = e.target;
-            if (!item.classList.contains('game-item') || item.classList.contains('correct')) return;
-            
-            if (selectedAmerican) {
-                selectedAmerican.classList.remove('selected');
-            }
-            selectedAmerican = item;
-            selectedAmerican.classList.add('selected');
-            
-            checkMatch();
-        });
         
         // Check if the selected pair is a match
         function checkMatch() {
@@ -463,54 +567,49 @@
                 }, 800);
             }
         }
-        
-        // Reset game button
-        resetGameBtn.addEventListener('click', initGame);
-        
-        // --- 3. Modal Logic ---
-        
-        function showModal(title, message, isError = false) {
-            modalTitle.textContent = title;
-            modalMessage.textContent = message;
-            
-            // Clear any error styling
-            modalTitle.classList.remove('text-red-600');
-            closeModalBtn.classList.remove('bg-red-600', 'hover:bg-red-700', 'focus:ring-red-500');
-            
-            // Add error styling if needed
-            if (isError) {
-                modalTitle.classList.add('text-red-600');
-                closeModalBtn.classList.add('bg-red-600', 'hover:bg-red-700', 'focus:ring-red-500');
-            } else {
-                closeModalBtn.classList.add('bg-blue-600', 'hover:bg-blue-700', 'focus:ring-blue-500');
-            }
-            
-            modal.classList.remove('hidden');
-            // Trigger transition
-            setTimeout(() => {
-                modalContent.classList.remove('scale-95', 'opacity-0');
-                modalContent.classList.add('scale-100', 'opacity-100');
-            }, 10);
-        }
-        
-        function hideModal() {
-            modalContent.classList.remove('scale-100', 'opacity-100');
-            modalContent.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 200); // Match transition duration
-        }
-        
-        closeModalBtn.addEventListener('click', hideModal);
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                hideModal();
-            }
-        });
 
         // --- Initial Page Load ---
-        initGame();
+        // Wait for the DOM to be fully loaded before trying to find elements
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // Setup Modal Logic FIRST
+            // Ensure modal elements are found *before* using them
+            if (!modal) {
+                modal = document.getElementById('modal');
+                modalContent = document.getElementById('modal-content');
+                modalTitle = document.getElementById('modal-title');
+                modalMessage = document.getElementById('modal-message');
+                closeModalBtn = document.getElementById('close-modal-btn');
+
+                // Add listeners only once, with null checks
+                if (closeModalBtn) {
+                    closeModalBtn.addEventListener('click', hideModal);
+                }
+                if (modal) {
+                    modal.addEventListener('click', (e) => {
+                        if (e.target === modal) {
+                            hideModal();
+                        }
+                    });
+                }
+            }
+            
+            // Check for init error
+            if (!app) {
+                 // We can safely call showModal now
+                 showModal("Initialization Failed", "Could not connect to the server. Please refresh the page.", true);
+                 return; // Stop further execution
+            }
+            
+            // If Firebase init was successful, init form and game
+            initFormLogic();
+            initGame();
+            
+            // Re-check for modal elements just in case, and set up listeners
+            // MOVED to top of this block
+        });
 
     </script>
 </body>
 </html>
+
