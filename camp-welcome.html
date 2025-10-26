@@ -237,8 +237,6 @@
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // --- Firebase Configuration ---
-        // ** IMPORTANT: This config is publicly visible. 
-        // ** Ensure your Firestore rules (provided separately) are secure.
         const firebaseConfig = {
           apiKey: "AIzaSyCXr9MHZ6vRJ6_u5zWL7x-OatnxEGj2VYU",
           authDomain: "long-english-camp.firebaseapp.com",
@@ -248,29 +246,19 @@
           appId: "1:881175905434:web:ac95bb0b19274f8c820b23"
         };
 
-        // --- Initialize Firebase ---
+        // --- Initialize Firebase (Synchronous Part) ---
         let app, auth, db, user;
         try {
+            // This part is synchronous and will not block
             app = initializeApp(firebaseConfig);
             auth = getAuth(app);
             db = getFirestore(app);
-            
-            // Sign in anonymously on page load
-            const userCredential = await signInAnonymously(auth);
-            user = userCredential.user;
-            console.log('Firebase Anonymous Sign-In successful. User ID:', user.uid);
-
         } catch (error) {
             console.error("Firebase Initialization Error:", error);
-            // Show a critical error to the user
-            // We need to define showModal *before* it can be called here.
-            // Let's defer this to a window.onload check, or just log to console.
-            // For now, the modal function is defined later, so this would fail.
-            // We will rely on the later checks.
+            // 'app' will be null, which we check for in DOMContentLoaded
         }
 
         // --- DOM Elements ---
-        // All these are now wrapped in DOMContentLoaded to ensure elements exist
         let profileForm, submitBtn, interestTagsContainer, interestInputsContainer;
         let modal, modalContent, modalTitle, modalMessage, closeModalBtn;
         let britishCol, americanCol, resetGameBtn;
@@ -572,8 +560,7 @@
         // Wait for the DOM to be fully loaded before trying to find elements
         document.addEventListener("DOMContentLoaded", () => {
             
-            // Setup Modal Logic FIRST
-            // Ensure modal elements are found *before* using them
+            // 1. Always set up the modal first, so we can show errors
             if (!modal) {
                 modal = document.getElementById('modal');
                 modalContent = document.getElementById('modal-content');
@@ -594,19 +581,44 @@
                 }
             }
             
-            // Check for init error
+            // 2. Always initialize the game. It has no dependencies.
+            // This will run immediately.
+            initGame();
+
+            // 3. Initialize the form logic. 
+            // The submit handler inside this function will check for a valid 'user' object.
+            initFormLogic();
+            
+            // 4. Check for Firebase *Initialization* error
             if (!app) {
                  // We can safely call showModal now
-                 showModal("Initialization Failed", "Could not connect to the server. Please refresh the page.", true);
-                 return; // Stop further execution
+                 showModal("Form Disabled", "Could not connect to the server. The game is playable, but the profile form is disabled.", true);
+                 
+                 // Also, find the submit button and disable it
+                 const formSubmitBtn = document.getElementById('submit-btn');
+                 if(formSubmitBtn) {
+                    formSubmitBtn.disabled = true;
+                    formSubmitBtn.textContent = 'Form Disabled';
+                 }
+            } else {
+                // 5. If init was OK, *now* try to sign in asynchronously
+                (async () => {
+                    try {
+                        const userCredential = await signInAnonymously(auth);
+                        user = userCredential.user;
+                        console.log('Firebase Anonymous Sign-In successful. User ID:', user.uid);
+                    } catch (error) {
+                        console.error("Firebase Sign-In Error:", error);
+                        showModal("Form Disabled", "Could not authenticate with the server. The game is playable, but the profile form is disabled.", true);
+                        const formSubmitBtn = document.getElementById('submit-btn');
+                        if (formSubmitBtn) {
+                            formSubmitBtn.disabled = true;
+                            formSubmitBtn.textContent = 'Form Disabled';
+                        }
+                    }
+                })();
             }
-            
-            // If Firebase init was successful, init form and game
-            initFormLogic();
-            initGame();
-            
-            // Re-check for modal elements just in case, and set up listeners
-            // MOVED to top of this block
+
         });
 
     </script>
