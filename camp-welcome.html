@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to British Hills Camp!</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use the Inter font family -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        /* Custom styles for the matching game */
+        .match-item {
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .match-item.selected {
+            background-color: #bfdbfe; /* blue-200 */
+            transform: scale(1.03);
+        }
+        .match-item.correct {
+            background-color: #d1fae5; /* green-100 */
+            color: #065f46; /* green-800 */
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .match-item.incorrect {
+            animation: shake 0.5s;
+            background-color: #fee2e2; /* red-100 */
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        /* Custom modal for form submission */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="max-w-4xl mx-auto py-6 px-4">
+            <h1 class="text-3xl font-bold text-center text-blue-800">
+                Welcome to British Hills Camp!
+            </h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- Welcome Message Section -->
+        <section class="bg-white p-6 rounded-lg shadow-lg mb-8">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">We're excited to see you soon!</h2>
+            <p class="text-lg leading-relaxed">
+                Welcome to the official page for our upcoming camp! We've put together this page so you can (optionally) share a little about yourself and get warmed up for our time together at British Hills. We can't wait to help you take your English to the next level in a fun and immersive environment.
+            </p>
+        </section>
+
+        <!-- Profile Form Section -->
+        <section class="bg-white p-6 rounded-lg shadow-lg mb-8">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">My Camp Profile <span class="text-base font-normal text-gray-500">(Optional)</span></h2>
+            <p class="text-gray-600 mb-6">Tell us a bit about yourself! This is just for fun and to help our teachers get to know you.</p>
+            
+            <form id="profile-form" class="space-y-6">
+                <!-- Full Name -->
+                <div>
+                    <label for="full-name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                    <input type="text" id="full-name" name="full-name" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., Keni Suzuki" required>
+                </div>
+                
+                <!-- Nickname -->
+                <div>
+                    <label for="nickname" class="block text-sm font-medium text-gray-700 mb-1">What should we call you? (Nickname)</label>
+                    <input type="text" id="nickname" name="nickname" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., Keni or Lisa">
+                </div>
+
+                <!-- Interests -->
+                <div>
+                    <span class="block text-sm font-medium text-gray-700 mb-2">What are your interests?</span>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        <label class="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition">
+                            <input type="checkbox" id="interest-sports-check" name="interests" value="sports" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <span>Sports</span>
+                        </label>
+                        <label class="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition">
+                            <input type="checkbox" id="interest-music-check" name="interests" value="music" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <span>Music</span>
+                        </label>
+                        <label class="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition">
+                            <input type="checkbox" id="interest-games-check" name="interests" value="games" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <span>Video Games</span>
+                        </label>
+                        <label class="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition">
+                            <input type="checkbox" id="interest-reading-check" name="interests" value="reading" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <span>Reading</span>
+                        </label>
+                        <label class="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition">
+                            <input type="checkbox" id="interest-art-check" name="interests" value="art" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <span>Art</span>
+                        </label>
+                        <label class="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition">
+                            <input type="checkbox" id="interest-other-check" name="interests" value="other" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <span>Other</span>
+                        </label>
+                    </div>
+                    <!-- NEW conditional text inputs -->
+                    <input type="text" id="interest-sports-text" name="interest-sports-text" class="w-full mt-3 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 hidden" placeholder="What sports do you like?">
+                    <input type="text" id="interest-music-text" name="interest-music-text" class="w-full mt-3 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 hidden" placeholder="What music do you like?">
+                    <input type="text" id="interest-games-text" name="interest-games-text" class="w-full mt-3 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 hidden" placeholder="What video games do you like?">
+                    <input type="text" id="interest-reading-text" name="interest-reading-text" class="w-full mt-3 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 hidden" placeholder="What do you like to read?">
+                    <input type="text" id="interest-art-text" name="interest-art-text" class="w-full mt-3 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 hidden" placeholder="What kind of art do you like?">
+                    
+                    <!-- Existing "Other" text input -->
+                    <input type="text" id="interest-other-text" name="interest-other-text" class="w-full mt-3 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 hidden" placeholder="Please tell us your other interest!">
+                </div>
+
+                <!-- English Goal -->
+                <div>
+                    <label for="goal" class="block text-sm font-medium text-gray-700 mb-1">My Goal at British Hills</label>
+                    <textarea id="goal" name="goal" rows="3" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., &quot;One thing I want to improve at British Hills is... my confidence in speaking!&quot;"></textarea>
+                </div>
+
+                <!-- Icebreaker -->
+                <div>
+                    <label for="icebreaker" class="block text-sm font-medium text-gray-700 mb-1">Icebreaker Question</label>
+                    <textarea id="icebreaker" name="icebreaker" rows="3" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="&quot;If you had one superpower, what would it be and why?&quot;"></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-right">
+                    <button type="submit" id="submit-btn" class="inline-flex justify-center py-3 px-6 border border-transparent shadow-lg text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                        Submit My Profile
+                    </button>
+                    <div id="form-error" class="text-red-600 text-sm mt-2 text-right h-5"></div>
+                </div>
+            </form>
+        </section>
+
+        <!-- Game Section -->
+        <section class="bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Game: British vs. American English</h2>
+            <p class="text-gray-600 mb-6">How well do you know your British and American vocabulary? Click a British word on the left, then click its matching American word on the right!</p>
+            
+            <div id="game-message" class="text-center font-semibold text-lg mb-4 h-6"></div>
+
+            <div class="flex flex-col md:flex-row md:space-x-8">
+                <!-- Column 1: British English -->
+                <div class="flex-1 mb-4 md:mb-0">
+                    <h3 class="text-lg font-semibold text-center text-blue-800 mb-3 border-b-2 border-blue-200 pb-2">British English (UK)</h3>
+                    <div id="british-terms" class="space-y-3">
+                        <!-- Terms will be injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Column 2: American English -->
+                <div class="flex-1">
+                    <h3 class="text-lg font-semibold text-center text-gray-800 mb-3 border-b-2 border-gray-200 pb-2">American English (US)</h3>
+                    <div id="american-terms" class="space-y-3">
+                        <!-- Terms will be injected by JS -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <button id="reset-game" class="py-2 px-5 border border-gray-400 shadow-sm text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition">
+                    Reset Game
+                </button>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- Footer -->
+    <footer class="text-center py-6 mt-8 text-gray-500 text-sm">
+        <p>&copy; British Hills. All rights reserved.</p>
+    </footer>
+    
+    <!-- Thank You Modal (Hidden by default) -->
+    <div id="thank-you-modal" class="modal-backdrop hidden">
+        <div class="modal-content">
+            <h3 class="text-2xl font-semibold text-green-600 mb-4">Thank You!</h3>
+            <p class="text-lg text-gray-700 mb-6">We've successfully received your profile. We're so excited to see you at camp!</p>
+            <button id="close-modal-btn" class="py-2 px-5 border border-transparent shadow-sm text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Module-level variables for Firebase
+        let db, auth;
+
+        /**
+         * Initializes Firebase and authenticates the user.
+         */
+        async function initializeFirebase() {
+            try {
+                // Get Firebase config, app ID, and auth token from global scope (provided by environment)
+                const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+                const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+                const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+                
+                if (!firebaseConfig.apiKey) {
+                    console.error("Firebase config is missing.");
+                    return { db: null, auth: null, appId: null };
+                }
+
+                // Initialize Firebase
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                setLogLevel('Debug'); // Enable debug logging for Firestore
+
+                // Sign in the user
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                    console.log("User signed in with custom token.");
+                } else {
+                    await signInAnonymously(auth);
+                    console.log("User signed in anonymously.");
+                }
+                
+                if (auth.currentUser) {
+                    console.log("User ID:", auth.currentUser.uid);
+                }
+                
+                return { db, auth, appId };
+
+            } catch (error) {
+                console.error("Firebase initialization failed:", error);
+                // Display a user-friendly error on the page if needed
+                const formError = document.getElementById('form-error');
+                if (formError) {
+                    formError.textContent = "Error: Could not connect to service. Please refresh.";
+                }
+                return { db: null, auth: null, appId: null };
+            }
+        }
+
+
+        document.addEventListener('DOMContentLoaded', async () => {
+
+            // Initialize Firebase first
+            const { appId } = await initializeFirebase();
+
+            // --- Profile Form Logic ---
+            const profileForm = document.getElementById('profile-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const formError = document.getElementById('form-error');
+            const fullNameInput = document.getElementById('full-name');
+            
+            // --- Original "Other" fields ---
+            const otherCheck = document.getElementById('interest-other-check');
+            const otherText = document.getElementById('interest-other-text');
+
+            // --- NEW conditional fields ---
+            const sportsCheck = document.getElementById('interest-sports-check');
+            const sportsText = document.getElementById('interest-sports-text');
+            const musicCheck = document.getElementById('interest-music-check');
+            const musicText = document.getElementById('interest-music-text');
+            const gamesCheck = document.getElementById('interest-games-check');
+            const gamesText = document.getElementById('interest-games-text');
+            const readingCheck = document.getElementById('interest-reading-check');
+            const readingText = document.getElementById('interest-reading-text');
+            const artCheck = document.getElementById('interest-art-check');
+            const artText = document.getElementById('interest-art-text');
+
+            const modal = document.getElementById('thank-you-modal');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+
+            // Show/hide 'Other' text field
+            otherCheck.addEventListener('change', () => {
+                otherText.classList.toggle('hidden', !otherCheck.checked);
+            });
+
+            // --- NEW event listeners for conditional fields ---
+            sportsCheck.addEventListener('change', () => {
+                sportsText.classList.toggle('hidden', !sportsCheck.checked);
+            });
+            musicCheck.addEventListener('change', () => {
+                musicText.classList.toggle('hidden', !musicCheck.checked);
+            });
+            gamesCheck.addEventListener('change', () => {
+                gamesText.classList.toggle('hidden', !gamesCheck.checked);
+            });
+            readingCheck.addEventListener('change', () => {
+                readingText.classList.toggle('hidden', !readingCheck.checked);
+            });
+            artCheck.addEventListener('change', () => {
+                artText.classList.toggle('hidden', !artCheck.checked);
+            });
+
+            // Handle form submission
+            profileForm.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Stop actual form submission
+                
+                // Ensure Firebase is initialized and user is signed in
+                if (!db || !auth || !auth.currentUser) {
+                    formError.textContent = 'Error: Not connected. Please refresh the page.';
+                    return;
+                }
+                
+                const fullName = fullNameInput.value.trim();
+                if (!fullName) {
+                    formError.textContent = 'Please enter your full name.';
+                    return;
+                }
+
+                // Set loading state
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting...';
+                formError.textContent = '';
+
+                // 1. Collect all checked interests
+                const interests = [];
+                document.querySelectorAll('input[name="interests"]:checked').forEach((checkbox) => {
+                    interests.push(checkbox.value);
+                });
+
+                // 2. Get data from the form
+                const profileData = {
+                    fullName: fullName,
+                    nickname: document.getElementById('nickname').value.trim(),
+                    interests: interests,
+                    
+                    // --- NEW data points from conditional fields ---
+                    sportsDetail: sportsText.value.trim(),
+                    musicDetail: musicText.value.trim(),
+                    gamesDetail: gamesText.value.trim(),
+                    readingDetail: readingText.value.trim(),
+                    artDetail: artText.value.trim(),
+                    
+                    // --- Original "Other" field ---
+                    otherInterest: otherText.value.trim(),
+                    englishGoal: document.getElementById('goal').value.trim(),
+                    icebreaker: document.getElementById('icebreaker').value.trim(),
+                    submittedAt: new Date().toISOString() // Add a timestamp
+                };
+
+                try {
+                    // 3. Get current user ID
+                    const userId = auth.currentUser.uid;
+
+                    // 4. Add data to a private user-specific collection
+                    // Path: /artifacts/{appId}/users/{userId}/studentProfile
+                    const docRef = await addDoc(collection(db, 'artifacts', appId, 'users', userId, 'studentProfile'), profileData);
+                    
+                    console.log("Document written with ID: ", docRef.id);
+                    
+                    // Show success modal
+                    modal.classList.remove('hidden');
+                    
+                    // Reset the form
+                    profileForm.reset();
+                    
+                    // --- NEW: Hide all conditional text fields again ---
+                    otherText.classList.add('hidden');
+                    sportsText.classList.add('hidden');
+                    musicText.classList.add('hidden');
+                    gamesText.classList.add('hidden');
+                    readingText.classList.add('hidden');
+                    artText.classList.add('hidden');
+
+                } catch (error) {
+                    console.error("Error adding document: ", error);
+                    formError.textContent = 'Error: Could not submit profile. Please try again.';
+                } finally {
+                    // Reset button state
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit My Profile';
+                }
+            });
+
+            // Close the modal
+            closeModalBtn.addEventListener('click', () => {
+                modal.classList.add('hidden');
+            });
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+
+
+            // --- Matching Game Logic (Unchanged) ---
+            const gameData = {
+                'Trousers': 'Pants',
+                'Lift': 'Elevator',
+                'Biscuit': 'Cookie',
+                'Flat': 'Apartment',
+                'Holiday': 'Vacation',
+                'Queue': 'Line',
+                'Lorry': 'Truck',
+                'Post': 'Mail'
+            };
+
+            const britishTermsContainer = document.getElementById('british-terms');
+            const americanTermsContainer = document.getElementById('american-terms');
+            const gameMessage = document.getElementById('game-message');
+            const resetGameBtn = document.getElementById('reset-game');
+
+            let selectedBritishTerm = null;
+            let correctMatches = 0;
+
+            function createTermElement(term, type) {
+                const el = document.createElement('div');
+                el.textContent = term;
+                el.dataset.term = term;
+                el.dataset.type = type;
+                el.className = 'match-item p-4 bg-white border border-gray-300 rounded-lg shadow-sm text-center font-medium';
+                return el;
+            }
+
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+            
+            function initGame() {
+                // Clear containers
+                britishTermsContainer.innerHTML = '';
+                americanTermsContainer.innerHTML = '';
+                gameMessage.textContent = '';
+                
+                // Reset game state
+                selectedBritishTerm = null;
+                correctMatches = 0;
+
+                const britishTerms = Object.keys(gameData);
+                const americanTerms = shuffleArray(Object.values(gameData));
+                
+                // Create and append term elements
+                britishTerms.forEach(term => {
+                    const el = createTermElement(term, 'british');
+                    el.addEventListener('click', onBritishTermClick);
+                    britishTermsContainer.appendChild(el);
+                });
+
+                americanTerms.forEach(term => {
+                    const el = createTermElement(term, 'american');
+                    el.addEventListener('click', onAmericanTermClick);
+                    americanTermsContainer.appendChild(el);
+                });
+            }
+
+            function onBritishTermClick(e) {
+                const clickedItem = e.target;
+                if (clickedItem.classList.contains('correct')) {
+                    return; // Already matched
+                }
+                
+                // Deselect if clicking the same one
+                if (clickedItem === selectedBritishTerm) {
+                    selectedBritishTerm.classList.remove('selected');
+                    selectedBritishTerm = null;
+                    return;
+                }
+
+                // Deselect previous
+                if (selectedBritishTerm) {
+                    selectedBritishTerm.classList.remove('selected');
+                }
+                
+                // Select new one
+                selectedBritishTerm = clickedItem;
+                selectedBritishTerm.classList.add('selected');
+                gameMessage.textContent = '';
+            }
+
+            function onAmericanTermClick(e) {
+                const clickedAmericanItem = e.target;
+                if (!selectedBritishTerm || clickedAmericanItem.classList.contains('correct')) {
+                    return; // Nothing selected or item already matched
+                }
+
+                const britishTerm = selectedBritishTerm.dataset.term;
+                const americanTerm = clickedAmericanItem.dataset.term;
+
+                // Check for match
+                if (gameData[britishTerm] === americanTerm) {
+                    // --- CORRECT MATCH ---
+                    selectedBritishTerm.classList.add('correct');
+                    selectedBritishTerm.classList.remove('selected');
+                    clickedAmericanItem.classList.add('correct');
+                    
+                    // Remove event listeners
+                    selectedBritishTerm.removeEventListener('click', onBritishTermClick);
+                    clickedAmericanItem.removeEventListener('click', onAmericanTermClick);
+
+                    selectedBritishTerm = null;
+                    correctMatches++;
+                    gameMessage.textContent = 'Correct!';
+                    gameMessage.style.color = '#059669'; // green-600
+                    
+                    // Check for win
+                    if (correctMatches === Object.keys(gameData).length) {
+                        gameMessage.textContent = 'Well done! You matched them all!';
+                    }
+                } else {
+                    // --- INCORRECT MATCH ---
+                    gameMessage.textContent = 'Not quite! Try again.';
+                    gameMessage.style.color = '#DC2626'; // red-600
+                    
+                    // Add shake animation
+                    selectedBritishTerm.classList.add('incorrect');
+                    clickedAmericanItem.classList.add('incorrect');
+                    
+                    // Remove shake after animation ends
+                    setTimeout(() => {
+                        selectedBritishTerm.classList.remove('incorrect');
+                        clickedAmericanItem.classList.remove('incorrect');
+                        // Deselect the British term to force re-selection
+                        selectedBritishTerm.classList.remove('selected');
+                        selectedBritishTerm = null;
+                    }, 500);
+                }
+            }
+
+            // --- Event Listeners ---
+            resetGameBtn.addEventListener('click', initGame);
+
+            // Initialize the game on load
+            initGame();
+        });
+    </script>
+</body>
+</html>
